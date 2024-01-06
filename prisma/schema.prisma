@@ -1,0 +1,149 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model user {
+  user_image          Bytes?
+  user_id             String                @id @default(uuid())
+  user_name           String                @unique @db.VarChar(50)
+  password            String
+  Type                String
+  email               String                @unique @db.VarChar(50)
+  name                String                @db.VarChar(200)
+  contact             contact?
+  description         String?               @db.Text
+  media_links         media_links[]
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime?
+  audience_demography audience_demography[]
+  campaign            campaign[]
+  proposal            proposal[]
+  collaboration       collaboration[]
+  rating              rating[]
+}
+
+model contact {
+  contact_id    String   @id @default(uuid())
+  phone         String?  @db.VarChar(20)
+  address       String?  @db.VarChar(1000)
+  belongsToUser user     @relation(fields: [user_id], references: [user_id])
+  user_id       String   @unique
+  createdAt     DateTime @default(now())
+}
+
+model media_links {
+  media_id      String  @id @default(uuid())
+  youtube       String?
+  twitter       String?
+  tiktok        String?
+  instagram     String?
+  belongsToUser user?   @relation(fields: [user_id], references: [user_id])
+  user_id       String?
+}
+
+model audience_demography {
+  demograph_id       String  @id @default(uuid())
+  age_interval       String?
+  gender_information String? @db.Text
+  belongsToUser      user?   @relation(fields: [user_id], references: [user_id])
+  user_id            String?
+}
+
+model campaign {
+  campaign_image            Bytes?
+  campaign_id               String                      @id @default(uuid())
+  campaign_description      String?                     @db.Text
+  campaign_header           String?                     @db.Text
+  user                      user?                       @relation(fields: [user_id], references: [user_id])
+  user_id                   String?
+  status                    String?
+  startedAt                 DateTime?
+  endedAt                   DateTime?
+  createdAt                 DateTime                    @default(now())
+  updatedAt                 DateTime?
+  collaboration_preferences collaboration_preferences[]
+  campaing_tags             campaing_tags[]
+  proposal                  proposal[]
+  collaboration             collaboration[]
+  rating                    rating[]
+}
+
+model collaboration_preferences {
+  preference_id        String                @id @default(uuid())
+  target_audience      String?               @db.Text
+  belongToCampaign     campaign?             @relation(fields: [campaign_id], references: [campaign_id])
+  campaign_id          String?
+  age_interval         String?               @db.Text
+  gender_information   String?               @db.Text
+  statistical_interval String?               @db.Text
+  preffered_platforms  preffered_platforms[]
+}
+
+model preffered_platforms {
+  platform_id         String                     @id @default(uuid())
+  platform            String?
+  belongsToPreference collaboration_preferences? @relation(fields: [preference_id], references: [preference_id])
+  preference_id       String?
+}
+
+model campaing_tags {
+  tag_id           String    @id @default(uuid())
+  tag1             String?
+  tag2             String?
+  tag3             String?
+  tag4             String?
+  tag5             String?
+  belongToCampaign campaign? @relation(fields: [campaign_id], references: [campaign_id])
+  campaign_id      String?
+}
+
+model proposal {
+  proposal_id       String    @id @default(uuid())
+  proposal_body     String?   @db.Text
+  proposal_status   String?   @db.Text
+  belongsToUser     user?     @relation(fields: [user_id], references: [user_id])
+  user_id           String?
+  belongsToCampaign campaign? @relation(fields: [campaign_id], references: [campaign_id])
+  campaign_id       String?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime?
+}
+
+model collaboration {
+  collaboration_id String    @id @default(uuid())
+  belongToCampaign campaign? @relation(fields: [campaign_id], references: [campaign_id])
+  campaign_id      String?
+  belongToUser     user?     @relation(fields: [user_id], references: [user_id])
+  user_id          String?
+  proposed_user_id String?
+  status           String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime?
+}
+
+model messages {
+  message_id       String  @id @default(uuid())
+  collaboration_id String?
+  message_body     String? @db.Text
+  user_name        String?
+}
+
+model rating {
+  rating_id        String    @id @default(uuid())
+  rating           Int?
+  rating_text      String?   @db.Text
+  user_id          String?
+  belongToUser     user?     @relation(fields: [user_id], references: [user_id])
+  campaign_id      String?
+  belongToCampaign campaign? @relation(fields: [campaign_id], references: [campaign_id])
+  toUser_id        String?
+  createdAt        DateTime  @default(now())
+}
