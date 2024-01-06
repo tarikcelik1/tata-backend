@@ -69,13 +69,7 @@ server.listen(process.env.PORT2, () => {
   console.log("Welcome to Tata-MESSAGE");
 });
 
-const corsOptions = {
-  origin: ["https://tata-front-end.onrender.com", "null"], // Add 'null' as an allowed origin
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  credentials: true, // Enable cookies and HTTP authentication if needed
-  optionsSuccessStatus: 204, // HTTP status code to respond with for preflight requests
-};
-app.use(cors(corsOptions));
+
 app.use(morgan("dev"));
 var bodyParser = require("body-parser");
 app.use(bodyParser.json({ limit: "20mb" }));
