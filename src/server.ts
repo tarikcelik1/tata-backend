@@ -13,7 +13,7 @@ import http from "http";
 
 const app = express();
 const corsOptions = {
-  origin: ["http://localhost:3000/", "null"], // Add 'null' as an allowed origin
+  origin: true, // Allow all origins
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true, // Enable cookies and HTTP authentication if needed
   optionsSuccessStatus: 204, // HTTP status code to respond with for preflight requests
