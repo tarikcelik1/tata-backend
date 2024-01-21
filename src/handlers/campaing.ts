@@ -166,34 +166,16 @@ export const deleteCampaign = async (req, res) => {
         campaign_id: my_id
       }
     })
-    const campaign = await prisma.campaign.delete({
+    const campaign = await prisma.campaign.update({
       where: {
         campaign_id: req.params.id,
       },
-      include: {
-        campaing_tags: true,
-        collaboration_preferences: {
-          include: {
-            preffered_platforms: true,
-          },
-        },
-        proposal: true,
-        rating: true,
-      },
-     
-
+      data:{
+        status:'Disabled'
+      }
+      
     });
-  
-    const arda1=await prisma.proposal.deleteMany({
-      where: {
-        campaign_id: req.params.id,
-      },
-    })
-    const arda2=await prisma.rating.deleteMany({
-      where: {
-        campaign_id: req.params.id,
-      },
-    })
+
     const collaboration = await prisma.collaboration_preferences.deleteMany({
       where: {
         campaign_id: req.params.id,
