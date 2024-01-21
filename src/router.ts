@@ -4,7 +4,7 @@ import { createContact, deleteContact, editContact, getContact } from './handler
 import { handleInputError } from './modules/middleware';
 import { getMediaLinks ,updateMedia} from './handlers/mediaLinks';
 import {getInfluencer, getUser,updateUser, updateUser2,getAllAdvertiserr} from './handlers/user'
-import { createCampagin, deleteCampaign, getAllCampaign, getAllCampaignInfluencer, getAllCampaign_byCampaign_id } from './handlers/campaing';
+import { createCampagin, deleteCampaign, getAllCampaign, getAllCampaignInfluencer, getAllCampaign_byCampaign_id,getAll } from './handlers/campaing';
 import { changeStatusOfProposal, getIndividualProposal, getProposal, postProposal } from './handlers/proposal';
 import { getCollaborationInfluencer } from './handlers/collaboration';
 import getTags from './handlers/campaign_tags';
@@ -41,4 +41,5 @@ router.get('/getRating/:toUser_id',getRating)
 router.get('/commentExists1/:user_id/:toUser_id/:campaign_id',commentExistsForAdvertiser)
 router.put('/deleteCampaign/:id',deleteCampaign)
 router.get('/getAllAdvertiser',getAllAdvertiserr)
+router.get('/getAll',getAll)
 export default router;
