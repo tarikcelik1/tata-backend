@@ -100,6 +100,7 @@ export const getAllCampaign_byCampaign_id = async (req, res) => {
           include: {
             media_links: true,
             contact: true,
+            rating:true
           },
         },
         collaboration_preferences: {
