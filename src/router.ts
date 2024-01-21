@@ -39,6 +39,6 @@ router.post('/postRating',postRating)
 router.get('/commentExists/:user_id/:toUser_id',commentExists)
 router.get('/getRating/:toUser_id',getRating)
 router.get('/commentExists1/:user_id/:toUser_id/:campaign_id',commentExistsForAdvertiser)
-router.delete('/deleteCampaign/:id',deleteCampaign)
+router.put('/deleteCampaign/:id',deleteCampaign)
 router.get('/getAllAdvertiser',getAllAdvertiserr)
 export default router;
