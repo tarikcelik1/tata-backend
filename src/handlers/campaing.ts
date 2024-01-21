@@ -136,6 +136,19 @@ export const getAllCampaignInfluencer = async (req, res) => {
         },
       },
     });
+        for (const campaign12 of campaign) {
+      const d1 = new Date(campaign12.endedAt);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+  
+      if (d1 < today) {
+          console.log("bumhere")
+          await prisma.campaign.updateMany({
+              where: { campaign_id: campaign12.campaign_id },
+              data: { status: 'Ended' }
+          });
+      }
+  }
     res.json({
       campaign: campaign,
     });
