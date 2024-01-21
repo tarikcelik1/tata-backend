@@ -196,3 +196,23 @@ export const getInfluencer = async (req, res) => {
     res.json({ error: e })
   }
 }
+export const getAllAdvertiserr = async (req, res) => {
+  try {
+    var Advertiser = await prisma.user.findMany({
+      where: {
+        Type: 'Advertiser'
+      },
+      include: {
+        proposal: true,
+        collaboration: true,
+        rating: true
+      }
+    })
+    res.json({ Advertiser })
+    res.status(200)
+  } catch (e) {
+    console.log(e)
+    res.status(500)
+    res.json({ error: e })
+  }
+}
