@@ -160,6 +160,7 @@ export const getAllCampaignInfluencer = async (req, res) => {
 };
 export const deleteCampaign = async (req, res) => {
   try {
+    var my_id =req.params.id;
     const campaign = await prisma.campaign.delete({
       where: {
         campaign_id: req.params.id,
@@ -177,6 +178,11 @@ export const deleteCampaign = async (req, res) => {
      
 
     });
+    const new_id = await prisma.collaboration.deleteMany({
+      where: {
+        campaign_id: my_id
+      }
+    })
     const arda1=await prisma.proposal.deleteMany({
       where: {
         campaign_id: req.params.id,
