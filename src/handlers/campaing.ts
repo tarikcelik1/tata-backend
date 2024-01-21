@@ -177,12 +177,6 @@ export const deleteCampaign = async (req, res) => {
       
     });
 
-    const collaboration = await prisma.collaboration_preferences.deleteMany({
-      where: {
-        campaign_id: req.params.id,
-      }
-    });
-
     res.json({
       campaign: campaign,
     });
