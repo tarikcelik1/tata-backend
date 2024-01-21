@@ -22,7 +22,11 @@ export const returnBasedMessages = async (req, res) => {
         const messages = await prisma.messages.findMany({
         where: {
             collaboration_id: req.params.id
-        }
+        },
+           select: {
+        // ... other fields ...
+        createdAt: true,
+    }
         })
         res.json({ messages })
         res.status(200)
