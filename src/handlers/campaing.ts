@@ -67,6 +67,20 @@ export const getAllCampaign = async (req, res) => {
     res.json({
       campaign: campaign,
     });
+      for (const campaign12 of campaign) {
+      const d1 = new Date(campaign12.endedAt);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+  
+      if (d1 < today) {
+          // You can use await here for any asynchronous operation
+          // For example, updating the campaign status
+          await prisma.campaign.updateMany({
+              where: { campaign_id: campaign12.campaign_id },
+              data: { status: 'Ended' }
+          });
+      }
+  }
   } catch (e) {
     console.log(e);
     res.status(500);
