@@ -134,6 +134,7 @@ model messages {
   collaboration_id String?
   message_body     String? @db.Text
   user_name        String?
+createdAt     DateTime @default(now())
 }
 
 model rating {
