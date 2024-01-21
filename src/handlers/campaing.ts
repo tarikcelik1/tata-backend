@@ -171,7 +171,6 @@ export const deleteCampaign = async (req, res) => {
             preffered_platforms: true,
           },
         },
-        collaboration: true,
         proposal: true,
         rating: true,
       },
