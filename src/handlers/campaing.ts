@@ -169,7 +169,7 @@ export const deleteCampaign = async (req, res) => {
     })
     const campaign = await prisma.campaign.update({
       where: {
-        campaign_id: req.params.id,
+        campaign_id: my_id,
       },
       data:{
         status:'Disabled'
