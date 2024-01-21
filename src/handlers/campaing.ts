@@ -67,6 +67,7 @@ export const getAllCampaign = async (req, res) => {
     res.json({
       campaign: campaign,
     });
+    /*
       for (const campaign12 of campaign) {
       const d1 = new Date(campaign12.endedAt);
       const today = new Date();
@@ -81,6 +82,7 @@ export const getAllCampaign = async (req, res) => {
           });
       }
   }
+  */
   } catch (e) {
     console.log(e);
     res.status(500);
