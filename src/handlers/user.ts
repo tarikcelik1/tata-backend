@@ -83,6 +83,9 @@ export const getUser = async (req, res) => {
     const user = await prisma.user.findUnique({
       where: {
         user_id: req.params.id
+      },
+      include: {
+        media_links:true
       }
     })
     res.json({ user })
